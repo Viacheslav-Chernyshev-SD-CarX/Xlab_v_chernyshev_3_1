@@ -7,8 +7,19 @@ namespace Golf
 	public abstract class GameState : MonoBehaviour
 	{
         public List<GameObject> views;
+        
+        public virtual void Enter()
+        {
+            gameObject.SetActive(true);
+        }
 
-        private void OnEnable()
+        public void Exit()
+        {
+            gameObject.SetActive(false);
+        }
+
+        //private void OnEnable()
+        protected virtual void OnEnable()
         {
             foreach (var items in views)
             {
@@ -16,11 +27,15 @@ namespace Golf
             }
         }
 
-        private void OnDisable()
+        //private void OnDisable()
+        protected virtual void OnDisable()
         {
             foreach (var items in views)
             {
+                if (items)
+                { 
                 items.SetActive(false);
+                }
             }
 
         }

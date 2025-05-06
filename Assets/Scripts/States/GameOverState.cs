@@ -6,6 +6,17 @@ namespace Golf
 {
     public class GameOverState : GameState
     {
+        public GameState mainMenuState;
+        public LevelController levelController;
 
+        public void Restart()
+        {
+            levelController.ClearStones();
+            
+            Exit();
+            mainMenuState.Enter();
+
+            SoundManager.Instance.PlayRestartStinger();
+        }
     }
 }

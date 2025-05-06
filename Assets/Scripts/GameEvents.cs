@@ -8,15 +8,18 @@ namespace Golf
     {
         public static event System.Action onCollisionStone;
         public static System.Action onStickHit;
+        
 
         public static void CollisionStonesInvoke(Collision collision)
         {
             onCollisionStone?.Invoke();
+            SoundManager.Instance?.PlayRandomStoneSound();
         }
 
         public static void StickHit()
         { 
-            onStickHit?.Invoke(); 
+            onStickHit?.Invoke();
+            SoundManager.Instance?.PlayRandomHitSound();
         }
 
     }
