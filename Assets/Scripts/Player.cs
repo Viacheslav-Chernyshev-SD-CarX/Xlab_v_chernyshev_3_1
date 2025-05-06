@@ -25,7 +25,7 @@ namespace Golf
         {
             m_lastPosition = helper.position;
 
-            m_isDown = Input.GetMouseButton(0);
+            //m_isDown = Input.GetMouseButton(0);
 
             Quaternion rot = stick.localRotation;
 
@@ -38,6 +38,10 @@ namespace Golf
 
         }
 
+        public void SetDown(bool value)
+        {
+            m_isDown = value;
+        }
 
         public void OnColloisionStick(Collider collider)    
         {
@@ -47,9 +51,10 @@ namespace Golf
                 var dir = (helper.position - m_lastPosition).normalized;
                 body.AddForce(dir * power, ForceMode.Impulse);
 
-                if (collider.TryGetComponent(out Stone stone))
+                if (collider.TryGetComponent(out Stone stone) && !stone.isAffect)
                 {
                     stone.isAffect = true;
+                    GameEvents.StickHit();
                 }
             }
 

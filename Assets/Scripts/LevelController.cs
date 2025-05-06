@@ -20,6 +20,9 @@ namespace Golf
        //  private List<GameObject> m_stones = new List<GameObject>(16);
 
         private float m_lastSpawnedTime = 0;
+
+        public int score = 0;
+        public int hightScore = 0;
         
         private void Start()
         {
@@ -30,15 +33,26 @@ namespace Golf
            // Stone.onCollisionStone += GameOver;
         }
 
+        private void OnStickHit()
+        {
+            score++;
+            hightScore = Mathf.Max(hightScore, score);
+            Debug.Log($"score: {score} - hightScore: {hightScore}");
+        }
 
         private void OnEnable()
         {
-            Stone.onCollisionStone += GameOver;
+            //Stone.onCollisionStone += GameOver;
+            GameEvents.onCollisionStone += GameOver;
+            GameEvents.onStickHit += OnStickHit;
+
         }
 
         private void OnDisable()
         {
-            Stone.onCollisionStone -= GameOver;
+            //Stone.onCollisionStone -= GameOver;
+            GameEvents.onCollisionStone -= GameOver;
+            GameEvents.onStickHit -= OnStickHit;
         }
 
         private void GameOver()
